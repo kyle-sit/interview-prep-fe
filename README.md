@@ -20,9 +20,9 @@ entry to `src/routes/routes.tsx`:
 
 ```tsx
 export const practiceRoutes: PracticeRoute[] = [
-  { path: 'form', label: 'Form', Component: Form },
-  { path: 'modal', label: 'Modal', Component: Modal },  // <- new
-]
+    { path: "form", label: "Form", Component: Form },
+    { path: "modal", label: "Modal", Component: Modal }, // <- new
+];
 ```
 
 That single line wires up the route, the nav link, and the home index. Nothing

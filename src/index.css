@@ -8,12 +8,15 @@
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  padding: 2rem;
-  font-family: system-ui, -apple-system, sans-serif;
-  line-height: 1.5;
+    margin: 0;
+    padding: 2rem;
+    font-family:
+        system-ui,
+        -apple-system,
+        sans-serif;
+    line-height: 1.5;
 }

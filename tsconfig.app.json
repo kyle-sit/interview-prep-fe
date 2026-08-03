@@ -1,29 +1,29 @@
 {
-  "compilerOptions": {
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
-    "target": "ES2022",
-    "lib": ["ES2023", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "jsx": "react-jsx",
-    "useDefineForClassFields": true,
+    "compilerOptions": {
+        "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+        "target": "ES2022",
+        "lib": ["ES2023", "DOM", "DOM.Iterable"],
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "jsx": "react-jsx",
+        "useDefineForClassFields": true,
 
-    "strict": true,
+        "strict": true,
 
-    /* Plain .jsx / .js components compile, but are never type-checked.
-       This is the escape hatch for fast scratch code under time pressure. */
-    "allowJs": true,
-    "checkJs": false,
+        /* Plain .jsx / .js components compile, but are never type-checked.
+           This is the escape hatch for fast scratch code under time pressure. */
+        "allowJs": true,
+        "checkJs": false,
 
-    /* Vite/esbuild does the transpiling; tsc is only ever a type-checker. */
-    "noEmit": true,
-    "isolatedModules": true,
-    "verbatimModuleSyntax": true,
-    "moduleDetection": "force",
+        /* Vite/esbuild does the transpiling; tsc is only ever a type-checker. */
+        "noEmit": true,
+        "isolatedModules": true,
+        "verbatimModuleSyntax": true,
+        "moduleDetection": "force",
 
-    "skipLibCheck": true,
-    "resolveJsonModule": true,
-    "allowImportingTsExtensions": true
-  },
-  "include": ["src"]
+        "skipLibCheck": true,
+        "resolveJsonModule": true,
+        "allowImportingTsExtensions": true
+    },
+    "include": ["src"]
 }

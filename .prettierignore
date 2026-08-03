@@ -1,0 +1,11 @@
+# Prettier has no business rewriting these.
+node_modules/
+dist/
+build/
+coverage/
+.vite/
+
+# Lockfiles are tool-generated; reformatting causes noisy diffs.
+package-lock.json
+yarn.lock
+pnpm-lock.yaml

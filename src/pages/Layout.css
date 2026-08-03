@@ -1,27 +1,27 @@
 /* Styles for Layout.tsx — the nav shell and the routed-content wrapper. */
 
 .nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid #ddd;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #ddd;
 }
 
 .nav-link {
-  color: #555;
-  text-decoration: none;
+    color: #555;
+    text-decoration: none;
 }
 
 .nav-link:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 .nav-link--active {
-  color: #000;
-  font-weight: 600;
+    color: #000;
+    font-weight: 600;
 }
 
 .content {
-  padding-top: 1.5rem;
+    padding-top: 1.5rem;
 }
