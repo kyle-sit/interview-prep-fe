@@ -48,61 +48,59 @@ function Form() {
     };
 
     return (
-        <>
-            <div className="Form">
-                <h1>Contact Form</h1>
-                <form onSubmit={handleSubmit}>
+        <div className="form">
+            <h1>Contact Form</h1>
+            <form onSubmit={handleSubmit} className="contactForm">
+                <div className="formField">
+                    <label htmlFor="name">Name </label>
+                    <input
+                        type="text"
+                        name="name"
+                        value={state.values.name}
+                        onChange={handleFieldChange}
+                    />
+                </div>
+                <div className="formField">
+                    <label htmlFor="email">Email </label>
+                    <input
+                        type="email"
+                        name="email"
+                        value={state.values.email}
+                        onChange={handleFieldChange}
+                    />
+                </div>
+                <div className="formField">
+                    <label htmlFor="dob">Date of Birth </label>
+                    <input
+                        type="date"
+                        name="dob"
+                        value={state.values.dob}
+                        onChange={handleFieldChange}
+                    />
+                </div>
+                <div className="formField">
+                    <label htmlFor="message">Message </label>
+                    <textarea
+                        placeholder="Message"
+                        name="message"
+                        value={state.values.message}
+                        onChange={handleFieldChange}
+                    />
+                </div>
+                <button type="submit">Submit</button>
+                {state.error && <p className="formError">{state.error}</p>}
+                {state.submittedData && (
                     <div>
-                        <label htmlFor="name">Name </label>
-                        <input
-                            type="text"
-                            name="name"
-                            value={state.values.name}
-                            onChange={handleFieldChange}
-                        />
+                        <h2>Submitted Information</h2>
+                        {Object.entries(state.submittedData).map(([field, value]) => (
+                            <p key={field}>
+                                <strong>{field}</strong> {value}
+                            </p>
+                        ))}
                     </div>
-                    <div>
-                        <label htmlFor="email">Email </label>
-                        <input
-                            type="email"
-                            name="email"
-                            value={state.values.email}
-                            onChange={handleFieldChange}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="dob">Date of Birth </label>
-                        <input
-                            type="date"
-                            name="dob"
-                            value={state.values.dob}
-                            onChange={handleFieldChange}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="message">Message </label>
-                        <textarea
-                            placeholder="Message"
-                            name="message"
-                            value={state.values.message}
-                            onChange={handleFieldChange}
-                        />
-                    </div>
-                    <button type="submit">Submit</button>
-                    {state.error && <p className="formError">{state.error}</p>}
-                    {state.submittedData && (
-                        <div>
-                            <h2>Submitted Information</h2>
-                            {Object.entries(state.submittedData).map(([field, value]) => (
-                                <p key={field}>
-                                    <strong>{field}</strong> {value}
-                                </p>
-                            ))}
-                        </div>
-                    )}
-                </form>
-            </div>
-        </>
+                )}
+            </form>
+        </div>
     );
 }
 

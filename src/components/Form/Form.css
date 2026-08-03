@@ -1,3 +1,19 @@
+.contactForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
 .formError {
     color: red;
+}
+
+.contactForm .formField {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.contactForm button {
+    align-self: flex-start;
 }
