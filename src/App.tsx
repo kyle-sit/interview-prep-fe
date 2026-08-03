@@ -10,8 +10,8 @@ export default function App() {
             <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
 
-                {practiceRoutes.map(({ path, Component }) => (
-                    <Route key={path} path={path} element={<Component />} />
+                {practiceRoutes.map(({ path, element }) => (
+                    <Route key={path} path={path} element={element} />
                 ))}
 
                 <Route path="*" element={<NotFound />} />

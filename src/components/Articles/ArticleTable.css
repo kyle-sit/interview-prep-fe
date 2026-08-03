@@ -1,0 +1,14 @@
+.articleTable table {
+    border-collapse: collapse;
+}
+
+.articleTable th,
+.articleTable td {
+    border: 1px solid #ccc;
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+}
+
+.articleTable thead th {
+    background-color: #f4f4f4;
+}
