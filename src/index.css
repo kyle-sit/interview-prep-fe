@@ -1,3 +1,10 @@
+/*
+ * Global styles only — reset and document-level defaults.
+ *
+ * Component and page styles live in a .css file next to the component
+ * (e.g. src/pages/Layout.css) and are imported by that component.
+ */
+
 *,
 *::before,
 *::after {
