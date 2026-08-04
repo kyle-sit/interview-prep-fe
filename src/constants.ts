@@ -35,3 +35,11 @@ export const ARTICLES_DATA = [
         date: "2010-12-31",
     },
 ];
+
+export const CODE_REVIEW_CATEGORIES = [
+    "Readability",
+    "Performance",
+    "Security",
+    "Documentation",
+    "Testing",
+];

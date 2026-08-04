@@ -1,0 +1,71 @@
+.reviewCategory {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid rgb(203, 203, 203);
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    gap: 0.5rem;
+}
+
+.reviewCategory p {
+    margin: 0;
+}
+
+.voteButtons {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.voteButtons button {
+    padding: 1rem;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition:
+        box-shadow 0.15s ease,
+        transform 0.15s ease;
+}
+
+.voteButtons button:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+.voteButtons button:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.voteButtons .upVote {
+    background-color: rgb(11, 213, 11);
+}
+
+.voteButtons .downVote {
+    background-color: rgb(253, 45, 45);
+}
+
+.reviewCategory .voteCount {
+    display: inline-block;
+    animation: pop 300ms ease-out;
+}
+
+.reviewCategory .upCount {
+    --pop-color: rgb(11, 213, 11);
+}
+
+.reviewCategory .downCount {
+    --pop-color: rgb(253, 45, 45);
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.4);
+        color: var(--pop-color);
+    }
+    100% {
+        transform: scale(1);
+    }
+}

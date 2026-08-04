@@ -2,6 +2,7 @@ import type { ReactElement } from "react";
 import Form from "../components/Form/Form.jsx";
 import Articles from "../components/Articles/Articles.jsx";
 import { ARTICLES_DATA } from "../constants";
+import CodeReviewFeedback from "../components/CodeReview/CodeReviewFeedback.jsx";
 
 export type PracticeRoute = {
     /** URL segment, no leading slash. */
@@ -25,4 +26,5 @@ export const practiceRoutes: PracticeRoute[] = [
         label: "Articles",
         element: <Articles articles={ARTICLES_DATA} />,
     },
+    { path: "codereview", label: "CodeReview", element: <CodeReviewFeedback /> },
 ];

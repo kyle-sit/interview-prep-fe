@@ -1,0 +1,8 @@
+.codeReview {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem 5rem 2rem 5rem;
+}
