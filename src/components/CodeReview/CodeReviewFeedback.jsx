@@ -5,7 +5,7 @@ import CodeReviewCard from "./CodeReviewCard";
 
 function CodeReviewFeedback() {
     const categories = CODE_REVIEW_CATEGORIES.map((category) => (
-        <CodeReviewCard category={category} />
+        <CodeReviewCard key={category} category={category} />
     ));
 
     return <div className="codeReview">{categories}</div>;

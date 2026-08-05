@@ -27,6 +27,6 @@ export const practiceRoutes: PracticeRoute[] = [
         label: "Articles",
         element: <Articles articles={ARTICLES_DATA} />,
     },
-    { path: "codereview", label: "CodeReview", element: <CodeReviewFeedback /> },
+    { path: "codereview", label: "Code Review", element: <CodeReviewFeedback /> },
     { path: "medicalrecords", label: "Medical Records", element: <MedicalRecords /> },
 ];
