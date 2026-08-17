@@ -1,11 +1,14 @@
 import { NavLink, Outlet } from "react-router";
 import { practiceRoutes } from "../routes/routes";
+import { useTheme } from "../context/ThemeContext";
 import "./Layout.css";
 
 const linkClass = ({ isActive }: { isActive: boolean }) =>
     isActive ? "nav-link nav-link--active" : "nav-link";
 
 export default function Layout() {
+    const { theme, toggleTheme } = useTheme();
+
     return (
         <>
             <nav className="nav">
@@ -17,6 +20,10 @@ export default function Layout() {
                         {label}
                     </NavLink>
                 ))}
+
+                <button type="button" className="theme-toggle" onClick={toggleTheme}>
+                    {theme === "light" ? "Switch to dark" : "Switch to light"}
+                </button>
             </nav>
 
             <main className="content">

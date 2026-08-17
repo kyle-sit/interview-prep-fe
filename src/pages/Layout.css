@@ -4,12 +4,13 @@
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
+    align-items: center;
     padding-bottom: 0.75rem;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--border);
 }
 
 .nav-link {
-    color: #555;
+    color: var(--fg-muted);
     text-decoration: none;
 }
 
@@ -18,8 +19,23 @@
 }
 
 .nav-link--active {
-    color: #000;
+    color: var(--fg);
     font-weight: 600;
+}
+
+.theme-toggle {
+    margin-left: auto;
+    padding: 0.25rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: none;
+    color: var(--fg-muted);
+    font: inherit;
+    cursor: pointer;
+}
+
+.theme-toggle:hover {
+    color: var(--fg);
 }
 
 .content {

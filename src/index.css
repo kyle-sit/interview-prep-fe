@@ -11,9 +11,34 @@
     box-sizing: border-box;
 }
 
+/*
+ * Theme tokens. ThemeProvider sets data-theme on <html>; everything below
+ * reads these variables instead of hard-coding colors.
+ *
+ * The [data-theme="dark"] block must stay AFTER :root — both selectors match
+ * the same element with the same specificity, so source order decides.
+ */
+:root {
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --fg-muted: #555555;
+    --border: #dddddd;
+    color-scheme: light;
+}
+
+[data-theme="dark"] {
+    --bg: #14161a;
+    --fg: #e8e8e8;
+    --fg-muted: #a0a0a0;
+    --border: #333a44;
+    color-scheme: dark;
+}
+
 body {
     margin: 0;
     padding: 2rem;
+    background-color: var(--bg);
+    color: var(--fg);
     font-family:
         system-ui,
         -apple-system,
