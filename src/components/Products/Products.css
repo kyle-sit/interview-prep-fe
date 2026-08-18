@@ -1,3 +1,7 @@
+.products-table h1 {
+    text-align: center;
+}
+
 .products-table table {
     border-collapse: collapse;
 }

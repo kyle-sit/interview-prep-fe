@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { ProductService } from "../services/ProductService";
 
 type ProductsContextType = {
     products: any[];
@@ -10,13 +11,11 @@ export function ProductsProvider({ children }: { children: React.ReactNode }) {
     const [products, setProducts] = useState<any[]>([]);
 
     useEffect(() => {
-        async function fetchData() {
-            const res = await fetch("https://dummyjson.com/products?limit=10&skip=0");
-            const data = await res.json();
-            setProducts(data.products);
+        async function loadProducts() {
+            setProducts(await ProductService.getProducts());
         }
 
-        fetchData();
+        loadProducts();
     }, []);
 
     const value = useMemo(() => ({ products }), [products]);

@@ -1,7 +1,8 @@
 # Architecture
 
 Stack and structure for `interview-prep` — a React scratchpad for practicing frontend
-component interview problems. No backend, no data fetching, no test runner.
+component interview problems. No backend, no test runner — data comes from public
+placeholder APIs.
 
 ## Stack
 
@@ -43,7 +44,16 @@ src/
   routes/routes.tsx     THE registry — single source of truth
   pages/                Layout (nav shell + <Outlet />), Home (index), NotFound
   components/<Name>/    one folder per practice problem, .jsx + colocated .css
+  context/              app-wide providers (theme, products) + their hooks
+  services/             HTTP calls — one class per API resource, no React
 ```
+
+## Services
+
+`src/services/` holds data access and nothing else. A service owns the URL, the HTTP
+status check, and the shape of the response envelope, so a caller gets back domain data
+and never a `Response`. Nothing in there imports React — which is what makes the fetch
+swappable without touching a component.
 
 ## The route registry
 
