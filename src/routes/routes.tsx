@@ -5,6 +5,7 @@ import { ARTICLES_DATA } from "../constants";
 import CodeReviewFeedback from "../components/CodeReview/CodeReviewFeedback.jsx";
 import MedicalRecords from "../components/MedicalRecords/MedicalRecords.jsx";
 import BlogPost from "../components/BlogPost/BlogPost.jsx";
+import Products from "../components/Products/Products.tsx";
 
 export type PracticeRoute = {
     /** URL segment, no leading slash. */
@@ -31,4 +32,5 @@ export const practiceRoutes: PracticeRoute[] = [
     { path: "codereview", label: "Code Review", element: <CodeReviewFeedback /> },
     { path: "medicalrecords", label: "Medical Records", element: <MedicalRecords /> },
     { path: "blogposts", label: "Blog Posts", element: <BlogPost /> },
+    { path: "products", label: "Products", element: <Products /> },
 ];
