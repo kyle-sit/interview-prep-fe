@@ -6,6 +6,10 @@ import CodeReviewFeedback from "../components/CodeReview/CodeReviewFeedback.jsx"
 import MedicalRecords from "../components/MedicalRecords/MedicalRecords.jsx";
 import BlogPost from "../components/BlogPost/BlogPost.jsx";
 import Products from "../components/Products/Products.tsx";
+import TaskList from "../components/TaskList/TaskList.jsx";
+import ForumThreads from "../components/ForumThreads/ForumThreads.jsx";
+import TicketQueue from "../components/TicketQueue/TicketQueue.jsx";
+import DwellTracker from "../components/DwellTracker/DwellTracker.jsx";
 
 export type PracticeRoute = {
     /** URL segment, no leading slash. */
@@ -33,4 +37,8 @@ export const practiceRoutes: PracticeRoute[] = [
     { path: "medicalrecords", label: "Medical Records", element: <MedicalRecords /> },
     { path: "blogposts", label: "Blog Posts", element: <BlogPost /> },
     { path: "products", label: "Products", element: <Products /> },
+    { path: "tasklist", label: "Task List", element: <TaskList /> },
+    { path: "forumthreads", label: "Forum Threads", element: <ForumThreads /> },
+    { path: "ticketqueue", label: "Ticket Queue", element: <TicketQueue /> },
+    { path: "dwelltracker", label: "Dwell Tracker", element: <DwellTracker /> },
 ];
