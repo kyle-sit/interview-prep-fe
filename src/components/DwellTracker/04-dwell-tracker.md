@@ -25,44 +25,29 @@ Build it at `src/components/DwellTracker/DwellTracker.jsx` and register the rout
 
 ## Provided
 
-A fake backend for Task 3 onward. Ignore it until then.
+The cards. Paste these in — they are static config, not data, and Tasks 1 and 2 need no
+network at all.
 
 ```js
-let SAVED = { 1: 0, 2: 0, 3: 0, 4: 0 };
-
-export const CARDS = [
+const CARDS = [
     { id: 1, label: "Rates" },
     { id: 2, label: "Bookings" },
     { id: 3, label: "Customs" },
     { id: 4, label: "Tracking" },
 ];
-
-export function fetchDwell() {
-    return new Promise((resolve) => {
-        setTimeout(() => resolve({ ...SAVED }), 400);
-    });
-}
-
-let failNext = false;
-export function saveDwell(cardId, ms) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (failNext) {
-                failNext = false;
-                reject(new Error("Write failed"));
-                return;
-            }
-            SAVED = { ...SAVED, [cardId]: ms };
-            resolve({ ...SAVED });
-        }, 400);
-    });
-}
-
-// Call from the console to exercise your error path.
-export function breakNextSave() {
-    failNext = true;
-}
 ```
+
+For Task 3 onward, a dev-server backend at [mocks/dwellApi.ts](../../../mocks/dwellApi.ts).
+Ignore it until then.
+
+| Request                               | Returns                              |
+| ------------------------------------- | ------------------------------------ |
+| `GET /api/dwell`                      | `{ "1": 0, "2": 0, "3": 0, "4": 0 }` |
+| `POST /api/dwell/{cardId}` — `{ ms }` | every card's totals, after the write |
+| `?fail=1` on either                   | 500                                  |
+
+Totals persist for the life of the dev server, so a page reload should show the time
+accumulated before it.
 
 ---
 
@@ -126,8 +111,8 @@ Acceptance:
 <details>
 <summary>Reveal when Task 2 passes</summary>
 
-Dwell time now survives a reload. Load from `fetchDwell()` on mount; write back with
-`saveDwell(cardId, ms)`.
+Dwell time now survives a reload. Load from `GET /api/dwell` on mount; write back with
+`POST /api/dwell/{cardId}` carrying `{ ms }`.
 
 | Element       | `data-testid` |
 | ------------- | ------------- |
@@ -138,14 +123,14 @@ Dwell time now survives a reload. Load from `fetchDwell()` on mount; write back 
 
 Acceptance:
 
-- On mount, `loading` is present until `fetchDwell()` settles; cards start at their saved
+- On mount, `loading` is present until the request settles; cards start at their saved
   totals, not at zero. On failure, render `error` and a working `retry`.
 - A card's total is written **when the pointer leaves it**, not on every tick.
 - `sync-status` reads `idle`, `saving`, or `saved`.
 - The value written is the card's total at the moment the pointer left. If the pointer
   re-enters and leaves again before the first write resolves, the second write must not
   save a smaller number than the first — no out-of-order clobbering.
-- A rejected save (`breakNextSave()` in the console) renders `error` and leaves the
+- A rejected save (append `?fail=1` to the POST) renders `error` and leaves the
   on-screen total intact. It is not rolled back.
 - Leaving a card and immediately unmounting still flushes that card's time.
 

@@ -1,4 +1,5 @@
 import type { Plugin } from "vite";
+import { parseUrl, sendJson } from "./http";
 
 /**
  * Dev-only stand-in for jsonplaceholder's /posts and /comments.
@@ -115,47 +116,38 @@ const COMMENTS = [
     },
 ];
 
-/** Latency so the loading state is visible rather than a single frame. */
-const DELAY_MS = 250;
-
 export function forumApi(): Plugin {
     return {
         name: "forum-api",
         configureServer(server) {
-            server.middlewares.use("/api", (req, res) => {
-                // `use` with a prefix strips it, so req.url is "/posts?..." here.
-                const url = new URL(req.url ?? "/", "http://localhost");
-
-                const send = (status: number, payload: unknown) => {
-                    setTimeout(() => {
-                        res.statusCode = status;
-                        res.setHeader("Content-Type", "application/json");
-                        res.end(JSON.stringify(payload));
-                    }, DELAY_MS);
-                };
+            server.middlewares.use("/api", (req, res, next) => {
+                const url = parseUrl(req);
+                const isForum = url.pathname === "/posts" || url.pathname === "/comments";
+                if (!isForum) return next();
 
                 // ?fail=1 on any request, to exercise the error and retry path.
                 if (url.searchParams.get("fail") === "1") {
-                    send(500, { error: "Simulated failure" });
+                    sendJson(res, 500, { error: "Simulated failure" });
                     return;
                 }
 
                 if (url.pathname === "/posts") {
                     const limit = Number(url.searchParams.get("_limit") ?? POSTS.length);
-                    send(200, POSTS.slice(0, limit));
+                    sendJson(res, 200, POSTS.slice(0, limit));
                     return;
                 }
 
                 if (url.pathname === "/comments") {
                     const postId = Number(url.searchParams.get("postId"));
-                    send(
+                    sendJson(
+                        res,
                         200,
                         COMMENTS.filter((c) => c.postId === postId),
                     );
                     return;
                 }
 
-                send(404, { error: `No route for ${url.pathname}` });
+                next();
             });
         },
     };

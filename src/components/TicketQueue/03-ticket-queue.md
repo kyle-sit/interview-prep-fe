@@ -24,49 +24,25 @@ Build it at `src/components/TicketQueue/TicketQueue.jsx` and register the route 
 
 ## Provided
 
-A fake backend. Paste it as-is; it mutates on its own, which is the point.
+A dev-server backend at [mocks/ticketApi.ts](../../../mocks/ticketApi.ts). It holds state
+across requests and mutates on its own, which is the point. Eight tickets seeded.
 
-```js
-let TICKETS = [
-    { id: 1, title: "Card declined", requester: "dana", status: "open", age: 4 },
-    { id: 2, title: "Refund not received", requester: "sam", status: "pending", age: 31 },
-    { id: 3, title: "Cannot reset password", requester: "kai", status: "open", age: 12 },
-    { id: 4, title: "Duplicate charge", requester: "dana", status: "closed", age: 90 },
-];
+| Request                                        | Returns                        |
+| ---------------------------------------------- | ------------------------------ |
+| `GET /api/tickets`                             | every ticket                   |
+| `POST /api/tickets/status` — `{ ids, status }` | every ticket, after the update |
+| `?fail=1` on either                            | 500                            |
 
-export function fetchTickets() {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            // Every poll ages open tickets by one minute.
-            TICKETS = TICKETS.map((t) =>
-                t.status === "open" ? { ...t, age: t.age + 1 } : t,
-            );
-            resolve(TICKETS.map((t) => ({ ...t })));
-        }, 400);
-    });
-}
-
-export function updateStatus(ids, status) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (status === "closed" && ids.length > 3) {
-                reject(new Error("Bulk close limited to 3"));
-                return;
-            }
-            TICKETS = TICKETS.map((t) => (ids.includes(t.id) ? { ...t, status } : t));
-            resolve(TICKETS.map((t) => ({ ...t })));
-        }, 400);
-    });
-}
-```
-
-Statuses are `open`, `pending`, `closed`.
+A ticket is `{ id, title, requester, status, age }`. Statuses are `open`, `pending`,
+`closed`. Every `GET /api/tickets` ages open tickets by one minute — that is what makes
+the polling in Task 3 visible. Closing more than three tickets in one request is rejected
+with a 400.
 
 ---
 
 ## Task 1 — Render the queue
 
-Load once on mount via `fetchTickets()`.
+Load once on mount from `GET /api/tickets`.
 
 | Element       | `data-testid`        |
 | ------------- | -------------------- |
@@ -119,7 +95,7 @@ Acceptance:
 <details>
 <summary>Reveal when Task 2 passes</summary>
 
-Poll `fetchTickets()` every 5 seconds.
+Poll `GET /api/tickets` every 5 seconds.
 
 | Element        | `data-testid`  |
 | -------------- | -------------- |
@@ -164,7 +140,7 @@ Acceptance:
   unchecked when none are.
 - Changing the filter must not silently drop selections on rows that scrolled out of
   view — `selected-count` counts every selected ticket, visible or not.
-- `bulk-apply` calls `updateStatus(selectedIds, status)` and reflects the result.
+- `bulk-apply` POSTs `{ ids, status }` to `/api/tickets/status` and reflects the result.
 - The bulk-close rejection (more than 3 ids) renders `error` and leaves every row's
   status unchanged.
 - Selection is cleared after a successful apply, kept after a failure.
@@ -208,7 +184,7 @@ Task 4. Filtered rows are a **derivation** of `tickets + query + status`. Comput
 during render. The only thing the debounce owns is a separate `debouncedQuery` state — the
 input stays controlled by an undebounced value, or typing lags.
 
-_Task 3 — stale closures._ `setInterval(() => setTickets(await fetchTickets()), 5000)`
+_Task 3 — stale closures._ An interval that refetches `/api/tickets` and calls `setTickets`
 inside an effect with `[]` deps captures the first render's scope forever. Add the filter
 to the deps and you tear down and recreate the interval on every keystroke, resetting the
 5s clock. The fix is that the poll should not need the filter at all — it only replaces
