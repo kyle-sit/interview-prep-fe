@@ -1,0 +1,20 @@
+.thread-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.thread-list .thread {
+    background-color: beige;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.thread-list .thread .thread-replies {
+    background-color: bisque;
+}
+
+.thread-list .thread .thread-replies .thread-reply {
+    display: flex;
+    flex-direction: row;
+}

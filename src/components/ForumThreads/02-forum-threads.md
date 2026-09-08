@@ -97,14 +97,19 @@ Acceptance:
 <details>
 <summary>Reveal when Task 2 passes</summary>
 
-Drop `SEED_THREADS`. On mount, fetch
-`https://jsonplaceholder.typicode.com/posts?_limit=4` for threads and
-`https://jsonplaceholder.typicode.com/comments?postId={id}` for each thread's replies.
+Drop `SEED_THREADS`. On mount, fetch `/api/posts?_limit=4` for threads and
+`/api/comments?postId={id}` for each thread's replies. These are served by the dev server
+from [mocks/forumApi.ts](../../../mocks/forumApi.ts) and mirror jsonplaceholder's shapes.
+Append `?fail=1` to either to force a 500 and exercise the error path.
 
 The comments endpoint returns a **flat** list — `{ id, postId, name, email, body }` — with
 no parent linkage. Nest them: treat every comment as a direct reply to its thread, except
 that any comment whose `body` contains `"@"` followed by another comment's `id` in the
 same thread is a reply to that comment.
+
+The fixtures cover a three-deep chain, two siblings replying to one parent, a four-deep
+chain, a thread with zero replies, and one comment referencing an id that isn't in its
+thread.
 
 | Element       | `data-testid` |
 | ------------- | ------------- |
