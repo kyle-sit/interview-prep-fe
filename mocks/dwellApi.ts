@@ -8,7 +8,19 @@ import { parseUrl, readJsonBody, sendJson } from "./http";
  * dwell time accumulated before it.
  */
 
+const CARDS = [
+    { id: 1, label: "Rates" },
+    { id: 2, label: "Bookings" },
+    { id: 3, label: "Customs" },
+    { id: 4, label: "Tracking" },
+];
+
 let SAVED: Record<number, number> = { 1: 0, 2: 0, 3: 0, 4: 0 };
+
+/** Both routes answer with the whole resource: every card, label and total. */
+function cardsWithTotals() {
+    return CARDS.map((card) => ({ ...card, ms: SAVED[card.id] ?? 0 }));
+}
 
 export function dwellApi(): Plugin {
     return {
@@ -24,7 +36,7 @@ export function dwellApi(): Plugin {
                 }
 
                 if (url.pathname === "/dwell" && req.method === "GET") {
-                    sendJson(res, 200, SAVED);
+                    sendJson(res, 200, cardsWithTotals());
                     return;
                 }
 
@@ -38,8 +50,12 @@ export function dwellApi(): Plugin {
                             sendJson(res, 400, { error: "Expected { ms: number }" });
                             return;
                         }
+                        if (!CARDS.some((card) => card.id === cardId)) {
+                            sendJson(res, 404, { error: `No card ${cardId}` });
+                            return;
+                        }
                         SAVED = { ...SAVED, [cardId]: ms };
-                        sendJson(res, 200, SAVED);
+                        sendJson(res, 200, cardsWithTotals());
                     });
                     return;
                 }

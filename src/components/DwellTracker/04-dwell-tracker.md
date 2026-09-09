@@ -40,11 +40,14 @@ const CARDS = [
 For Task 3 onward, a dev-server backend at [mocks/dwellApi.ts](../../../mocks/dwellApi.ts).
 Ignore it until then.
 
-| Request                               | Returns                              |
-| ------------------------------------- | ------------------------------------ |
-| `GET /api/dwell`                      | `{ "1": 0, "2": 0, "3": 0, "4": 0 }` |
-| `POST /api/dwell/{cardId}` — `{ ms }` | every card's totals, after the write |
-| `?fail=1` on either                   | 500                                  |
+| Request                               | Returns                                 |
+| ------------------------------------- | --------------------------------------- |
+| `GET /api/dwell`                      | `[{ id, label, ms }, …]` — one per card |
+| `POST /api/dwell/{cardId}` — `{ ms }` | the same array, after the write         |
+| `?fail=1` on either                   | 500                                     |
+
+Both routes answer with the whole resource, so responses carry labels as well as totals —
+from Task 3 on you can drop the local `CARDS` and render straight from the API.
 
 Totals persist for the life of the dev server, so a page reload should show the time
 accumulated before it.
