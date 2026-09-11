@@ -1,0 +1,31 @@
+.ticket-queue {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+}
+
+.ticket-queue .ticket-list,
+th,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    border-spacing: 10px;
+    padding: 10px;
+}
+
+.ticket-queue .poll {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.ticket-queue .status-change {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.ticket-queue .status-change button {
+    align-self: self-start;
+}
